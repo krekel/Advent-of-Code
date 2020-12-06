@@ -11,7 +11,6 @@ import (
 func main() {
 
 	values := make(map[int]int)
-	vals := make([]int, 0, 30)
 
 	file, err := os.Open("input.txt")
 	if err != nil {
@@ -28,7 +27,6 @@ func main() {
 	for scanner.Scan() {
 		val, _ := strconv.Atoi(scanner.Text())
 		values[val] = val
-		vals = append(vals, val)
 	}
 
 	// part 1
@@ -41,11 +39,11 @@ func main() {
 	}
 
 	// part 2
-	for j := 0; j < len(vals); j++ {
-		for k := j + 1; k < len(vals); k++ {
-			elem, ok := values[2020-(vals[k]+vals[j])]
+	for _, i := range values {
+		for _, j := range values {
+			elem, ok := values[2020-(i+j)]
 			if ok {
-				fmt.Println(elem * vals[j] * vals[k])
+				fmt.Println(elem * i * j)
 				return
 			}
 		}
